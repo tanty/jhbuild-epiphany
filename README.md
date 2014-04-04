@@ -8,7 +8,10 @@ Scripts to help with building [Web](https://wiki.gnome.org/Apps/Web)
 Instructions
 ------------
 
-Place the content of this repository in /opt/epiphany
+Clone this repository into:
+
+    $ git clone https://github.com/tanty/jhbuild-epiphany /opt/epiphany
+
 
 Run, in order:
 
@@ -16,8 +19,8 @@ Run, in order:
     $ /opt/epiphany/re-compile.sh
 
 You may have to enter some password and install some dependencies if
-the jhbuild compilation fails at some point, but you should be able to
-provide all of them with a not to old GNU/Linux distribution.
+the jhbuild compilation fails at some point but you should be able to
+provide all of them with a not too old GNU/Linux distribution.
 
 You may have to wait for some hours and in the end the whole thing
 will be taking up to ~5.5GB, but it should work.
