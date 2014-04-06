@@ -6,12 +6,14 @@
 # if you have a GNOME git account, uncomment this line
 # repos['git.gnome.org'] = 'ssh://user@git.gnome.org/git/'
 
+script_path = os.path.dirname(os.path.realpath(__file__))
+
 # what module set should be used.  The default can be found in
 # jhbuild/defaults.jhbuildrc, but can be any file in the modulesets directory
 # or a URL of a module set file on a web server.
 # moduleset = 'gnome-apps-3.12'
 #moduleset = [ 'gnome-apps-3.12', 'file:///opt/epiphany/jhbuild.modules', 'file:///opt/epiphany/jhbuild-optional.modules' ]
-moduleset = [ 'gnome-apps-3.12', 'file:///opt/epiphany/jhbuild-epiphany.modules' ]
+moduleset = [ 'gnome-apps-3.12', os.path.join(script_path,'jhbuild-epiphany.modules') ]
 
 # A list of the modules to build.  Defaults to the GNOME core and tested apps.
 # modules = [ 'meta-gnome-core', 'meta-gnome-apps-tested' ]
@@ -23,10 +25,10 @@ modules = [ 'jhbuild-stable-epiphany' ]
 # modules = ['meta-gnome-desktop']
 
 # what directory should the source be checked out to?
-checkoutroot = '/opt/epiphany/checkout'
+checkoutroot = os.path.join(script_path, 'checkout')
 
 # the prefix to configure/install modules to (must have write access)
-prefix = '/opt/epiphany/install'
+prefix = os.path.join(script_path, 'install')
 
 # custom CFLAGS / environment pieces for the build
 # os.environ['CFLAGS'] = '-Wall -g -O0'

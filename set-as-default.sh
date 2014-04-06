@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASE_PATH="/opt/epiphany/"
+BASE_PATH="`dirname \"$0\"`"
 
 cp ${BASE_PATH}/jhbuild-epiphany-browser.desktop ${HOME}/.local/share/applications/
 update-desktop-database ${HOME}/.local/share/applications
