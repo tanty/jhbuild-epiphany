@@ -1,7 +1,8 @@
-/jhbuild-install/
-/jhbuild.git/
 /checkout/
 /install/
+/jhbuild-install/
+/jhbuild-webkit/
+/jhbuild.git/
 
 # Ignore common tool auto-generated files.
 *~

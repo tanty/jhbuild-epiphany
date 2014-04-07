@@ -13,6 +13,9 @@ fi
 pushd ${BASE_PATH}/jhbuild.git && git pull
 ./autogen.sh --prefix=${FULL_BASE_PATH}/jhbuild-install && make && make install
 popd
+if [ ! -d ${BASE_PATH}/jhbuild-webkit ]; then
+    svn export -r 166872 http://svn.webkit.org/repository/webkit/releases/WebKitGTK/webkit-2.4.0/Tools/gtk ${BASE_PATH}/jhbuild-webkit
+fi
 ${BASE_PATH}/jhbuild-webkit/install-dependencies
 #${BASE_PATH}/jhbuild-install/bin/jhbuild sysdeps --install
 # ${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc build -f --nodeps
