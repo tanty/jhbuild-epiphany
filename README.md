@@ -14,10 +14,9 @@ free space:
     $ git clone https://github.com/tanty/jhbuild-epiphany && cd jhbuild-epiphany
 
 
-Run, in order:
+Run:
 
-    $ ./bootstrap.sh
-    $ ./re-compile.sh
+    $ ./compile.sh
 
 You may have to enter some password and install some dependencies if
 the jhbuild compilation fails at some point but you should be able to
@@ -35,4 +34,4 @@ Web Browser".
 
 If you want to re-compile at some point, you can run again:
 
-    $ ./re-compile.sh
+    $ ./compile.sh
