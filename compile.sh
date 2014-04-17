@@ -17,6 +17,6 @@ if [ ! -d ${BASE_PATH}/jhbuild-webkit ]; then
     svn export -r 167344 http://svn.webkit.org/repository/webkit/releases/WebKitGTK/webkit-2.4.0/Tools/gtk ${BASE_PATH}/jhbuild-webkit
 fi
 ${BASE_PATH}/jhbuild-webkit/install-dependencies
-#${BASE_PATH}/jhbuild-install/bin/jhbuild sysdeps --install
+${BASE_PATH}/jhbuild-install/bin/jhbuild sysdeps --install
 # ${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc build -f --nodeps
 ${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc build --nodeps
