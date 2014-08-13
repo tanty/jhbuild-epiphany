@@ -149,7 +149,7 @@
     </dependencies>
   </autotools>
 
-  <autotools id="evince" autogenargs="--enable-introspection --enable-browser-plugin"
+  <autotools id="evince" autogenargs="--enable-browser-plugin"
                          supports-parallel-builds="no">
     <branch repo="git.gnome.org"
             revision="master">
