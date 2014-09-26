@@ -3,6 +3,10 @@
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
 
+<!-- git repos -->
+  <repository type="git" name="git.gnome.org"
+      href="git://git.gnome.org/"/>
+
   <!-- tarball repos -->
   <repository type="tarball" name="ftp.gnome.org"
       href="http://ftp.gnome.org"/>
@@ -22,6 +26,7 @@
       <dep package="dconf"/>
       <dep package="vala"/>
       <dep package="WebKit"/>
+      <dep package="evince"/>
       <dep package="epiphany"/>
     </dependencies>
   </metamodule>
@@ -60,9 +65,9 @@
       <dep package="at-spi2-atk"/>
       <dep package="gdk-pixbuf"/>
     </dependencies>
-    <branch module="/pub/GNOME/sources/gtk+/3.11/gtk+-3.11.6.tar.xz" version="3.11.6"
+    <branch module="/pub/GNOME/sources/gtk+/3.13/gtk+-3.13.5.tar.xz" version="3.13.5"
             repo="ftp.gnome.org"
-            hash="sha256:3639b142856fcc663d2af3fc7aa5b64efd186124ba13428f378da6f46f07778a">
+            hash="sha256:c8648197d0a79edda0faeab6c17d18f32118dfb1922e747738964a04336e9631">
     </branch>
   </autotools>
 
@@ -72,9 +77,26 @@
     <dependencies>
       <dep package="libffi"/>
     </dependencies>
-    <branch module="/pub/GNOME/sources/glib/2.40/glib-2.40.0.tar.xz" version="2.40.0"
+    <branch module="/pub/GNOME/sources/glib/2.41/glib-2.41.2.tar.xz" version="2.41.2"
             repo="ftp.gnome.org"
-            hash="sha256:0d27f195966ecb1995dcce0754129fd66ebe820c7cd29200d264b02af1aa28b5"/>
+            hash="sha256:da1f7258655f0e196b9304cb9515784634f3797437923e236bb3466348811c96"/>
+  </autotools>
+
+  <autotools id="atk"
+             autogenargs="--disable-introspection">
+    <branch repo="git.gnome.org"
+            revision="gnome-3-12">
+    </branch>
+  </autotools>
+
+  <autotools id="libsoup"
+             autogenargs="--without-gnome --disable-introspection">
+    <dependencies>
+      <dep package="glib-networking"/>
+    </dependencies>
+    <branch repo="git.gnome.org"
+            revision="2.48.0">
+    </branch>
   </autotools>
 
   <autotools id="libsecret" autogen-sh="configure">
@@ -93,13 +115,12 @@
     </dependencies>
   </autotools>
 
-  <autotools id="WebKit" makefile="GNUmakefile"
-             autogenargs="--enable-introspection">
+  <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release">
     <pkg-config>webkitgtk-3.0.pc</pkg-config>
     <branch repo="webkitgtk.org"
-            module="webkitgtk-2.4.5.tar.xz" version="2.4.5"
-            hash="sha256:88d06277aae179c205b548e1851a5e5663ca6f59f5aa8e81af9b87732d6b8a13"
-            size="9842948">
+            module="webkitgtk-2.6.0.tar.xz" version="2.6.0"
+            hash="sha256:beb702b3d57d5323b6eecc7f517033777454ea59f1d897d2d96090756aadf4f3"
+            size="9945848">
     </branch>
     <dependencies>
       <dep package="at-spi2-core"/>
@@ -109,7 +130,7 @@
       <dep package="libxml2"/>
       <dep package="gst-plugins-base"/>
       <dep package="gtk+"/>
-      <!-- GTK+ 2.x required for the plugin process when build Webkit2 -->
+      <!-- GTK+ 2.x required for the plugin process -->
       <dep package="gtk+-2"/>
       <dep package="pango"/>
       <dep package="libsoup"/>
@@ -125,6 +146,76 @@
       <dep package="libxslt"/>
       <dep package="sqlite3"/>
       <dep package="enchant"/>
+    </suggests>
+  </cmake>
+
+  <autotools id="adwaita-icon-theme">
+    <branch repo="git.gnome.org"
+            revision="master">
+    </branch>
+    <dependencies>
+      <dep package="hicolor-icon-theme"/>
+      <dep package="gnome-common"/>
+      <dep package="intltool"/>
+      <dep package="gtk+"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="libmediaart" autogenargs="--disable-qt">
+    <branch repo="git.gnome.org"
+            revision="0.4.0">
+    </branch>
+    <dependencies>
+      <dep package="gdk-pixbuf"/>
+      <dep package="glib"/>
+      <dep package="gtk-doc"/>
+      <dep package="vala"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="evince" autogenargs="--enable-browser-plugin"
+                         supports-parallel-builds="no">
+    <branch repo="git.gnome.org"
+            revision="master">
+    </branch>
+    <dependencies>
+      <dep package="intltool"/>
+      <dep package="glib"/>
+      <dep package="gtk+"/>
+      <dep package="libxml2"/>
+      <dep package="adwaita-icon-theme"/>
+      <dep package="libsecret"/>
+      <dep package="poppler"/>
+      <dep package="nautilus"/>
+      <dep package="libgxps"/>
+      <dep package="yelp-tools"/>
+    </dependencies>
+    <suggests>
+      <dep package="libsecret"/>
+    </suggests>
+  </autotools>
+
+  <autotools id="epiphany">
+    <branch repo="git.gnome.org">
+    </branch>
+    <dependencies>
+      <dep package="intltool"/>
+      <dep package="iso-codes"/>
+      <dep package="gtk+"/>
+      <dep package="startup-notification"/>
+      <dep package="WebKit"/>
+      <dep package="gcr"/>
+      <dep package="avahi"/>
+      <dep package="gnome-desktop"/>
+      <dep package="libwnck"/>
+      <dep package="libsecret"/>
+      <dep package="libsoup"/>
+    </dependencies>
+    <suggests>
+      <dep package="enchant"/>
+      <dep package="libnotify"/>
+      <dep package="libcanberra"/>
+      <dep package="nss"/>
     </suggests>
   </autotools>
 
