@@ -7,4 +7,7 @@ FULL_BASE_PATH="`dirname \"$FULL_SCRIPT_PATH\"`"
 export MOZ_PLUGIN_PATH=${BASE_PATH}/install/lib/mozilla/plugins/
 export G_TLS_GNUTLS_PRIORITY=${G_TLS_GNUTLS_PRIORITY:-NORMAL:%COMPAT:\!VERS-SSL3.0}
 
+# https://bugs.freedesktop.org/show_bug.cgi?id=85064
+export LIBGL_DRI3_DISABLE=1
+
 ${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc run ${BASE_PATH}/install/bin/epiphany $@
