@@ -89,6 +89,19 @@
     </branch>
   </autotools>
 
+  <autotools id="gobject-introspection">
+    <branch repo="git.gnome.org"
+            tag="GOBJECT_INTROSPECTION_1_43_3">
+    </branch>
+    <dependencies>
+      <dep package="bison"/>
+      <dep package="flex"/>
+      <dep package="glib"/>
+      <dep package="cairo"/>
+      <dep package="python2-devel"/>
+    </dependencies>
+  </autotools>
+
   <autotools id="libsoup"
              autogenargs="--without-gnome --disable-introspection">
     <dependencies>
@@ -118,9 +131,9 @@
   <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DDEVELOPER_MODE=ON">
     <pkg-config>webkit2gtk-4.0.pc</pkg-config>
     <branch repo="webkitgtk.org"
-            module="webkitgtk-2.6.5.tar.xz" version="2.6.5"
-            hash="sha256:b1658017cea7cc545b9e01f22af585986e21e4242825e215bc5f8e0c0dc67593"
-            size="10000124">
+            module="webkitgtk-2.8.0.tar.xz" version="2.8.0"
+            hash="sha256:05fad239f5f035b0a3628bb7bc1536d916f772fc9ff95de22e3cec1af2ac6815"
+            size="10431576">
     </branch>
     <dependencies>
       <dep package="at-spi2-core"/>
@@ -170,6 +183,25 @@
       <dep package="glib"/>
       <dep package="gtk-doc"/>
       <dep package="vala"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="nautilus">
+    <branch repo="git.gnome.org"
+            tag="3.15.4">
+    </branch>
+    <dependencies>
+      <dep package="intltool"/>
+      <dep package="glib"/>
+      <dep package="gtk+"/>
+      <dep package="pango"/>
+      <dep package="libnotify"/>
+      <dep package="libxml2"/>
+      <dep package="gnome-desktop"/>
+      <dep package="gsettings-desktop-schemas"/>
+      <dep package="tracker"/>
+      <dep package="exempi"/>
+      <dep package="libexif"/>
     </dependencies>
   </autotools>
 
