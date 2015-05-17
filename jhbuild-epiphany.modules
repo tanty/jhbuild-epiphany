@@ -13,8 +13,8 @@
   <repository type="tarball" name="webkitgtk.org"
       href="http://webkitgtk.org/releases/"/>
 
-  <include href="jhbuild-webkit/jhbuild.modules"/>
   <include href="jhbuild-webkit/jhbuild-optional.modules"/>
+  <include href="jhbuild-webkit/jhbuild.modules"/>
 
   <metamodule id="jhbuild-stable-epiphany">
     <dependencies>
