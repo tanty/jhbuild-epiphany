@@ -133,9 +133,9 @@
   <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DDEVELOPER_MODE=ON">
     <pkg-config>webkit2gtk-4.0.pc</pkg-config>
     <branch repo="webkitgtk.org"
-            module="webkitgtk-2.8.5.tar.xz" version="2.8.5"
-            hash="sha256:3d1f0c534935f43fd74df90f2648fcee672d60f1f57a30fa557a77891ae04d20"
-            size="10455256">
+            module="webkitgtk-2.10.0.tar.xz" version="2.10.0"
+            hash="sha256:42325622ef35394fa65a139b55f0a20b843bbd6f8b94cb7c591da6d68c62686d"
+            size="11036516">
     </branch>
     <dependencies>
       <dep package="at-spi2-core"/>
@@ -247,7 +247,7 @@
     <if condition-set="freebsd">
       <autogenargs value="LIBARCHIVE_CFLAGS=' ' LIBARCHIVE_LIBS='-larchive'"/>
     </if>
-    <branch repo="github.com" module="hughsie/appstream-glib.git"/>
+    <branch repo="github.com" module="hughsie/appstream-glib.git" tag="appstream_glib_0_5_0"/>
     <dependencies>
       <dep package="freetype2"/>
       <dep package="gcab"/>
