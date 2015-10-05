@@ -6,6 +6,7 @@ FULL_BASE_PATH="`dirname \"$FULL_SCRIPT_PATH\"`"
 
 
 sed -e 's|@BASE_PATH@|'${FULL_BASE_PATH}'|g' ${BASE_PATH}/jhbuild-epiphany-browser.desktop.in > ${BASE_PATH}/jhbuild-epiphany-browser.desktop
+sed -e 's|@BASE_PATH@|'${FULL_BASE_PATH}'|g' ${BASE_PATH}/jhbuild-epiphany-browser-incognito.desktop.in > ${BASE_PATH}/jhbuild-epiphany-browser-incognito.desktop
 
 if [ ! -d ${BASE_PATH}/jhbuild.git ]; then
     git clone git://git.gnome.org/jhbuild ${BASE_PATH}/jhbuild.git
