@@ -133,9 +133,9 @@
   <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DDEVELOPER_MODE=ON">
     <pkg-config>webkit2gtk-4.0.pc</pkg-config>
     <branch repo="webkitgtk.org"
-            module="webkitgtk-2.10.0.tar.xz" version="2.10.0"
-            hash="sha256:42325622ef35394fa65a139b55f0a20b843bbd6f8b94cb7c591da6d68c62686d"
-            size="11036516">
+            module="webkitgtk-2.10.3.tar.xz" version="2.10.3"
+            hash="sha256:2b3ee0b2ea9bac82064d818085e09236d5fca97a5780d4c731b2f0400fb64052"
+            size="11013220">
     </branch>
     <dependencies>
       <dep package="at-spi2-core"/>
