@@ -130,7 +130,10 @@
     </dependencies>
   </autotools>
 
-  <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DDEVELOPER_MODE=ON">
+  <!-- <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DDEVELOPER_MODE=ON"> -->
+  <!-- <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=RelWithDebugInfo -DDEVELOPER_MODE=ON"> -->
+  <!-- <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Debug -DDEVELOPER_MODE=ON"> -->
+  <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Debug -DDEVELOPER_MODE=ON -DCMAKE_C_FLAGS_DEBUG=-g1 -DCMAKE_CXX_FLAGS_DEBUG=-g1">
     <pkg-config>webkit2gtk-4.0.pc</pkg-config>
     <branch repo="webkitgtk.org"
             module="webkitgtk-2.10.3.tar.xz" version="2.10.3"
