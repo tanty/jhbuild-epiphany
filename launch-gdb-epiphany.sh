@@ -13,4 +13,6 @@ export LIBGL_DRI3_DISABLE=1
 export XCURSOR_THEME=Adwaita
 #export XCURSOR_THEME=DMZ-White
 
+#export WEB_PROCESS_CMD_PREFIX='gdbserver localhost:8080'
+
 ${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc run gdb ${BASE_PATH}/install/bin/epiphany $@

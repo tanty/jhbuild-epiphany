@@ -33,64 +33,6 @@
     </dependencies>
   </metamodule>
 
-  <autotools id="pango" autogenargs="--with-cairo --enable-installed-tests">
-    <pkg-config>pango.pc</pkg-config>
-    <branch repo="ftp.gnome.org"
-            module="/pub/GNOME/sources/pango/1.34/pango-1.34.1.tar.xz" version="1.34"
-            hash="sha256:1aea30df34a8ae4fcce71afd22aa5b57224b52916d46e3ea81ff9f1eb130e64c"/>
-    <dependencies>
-      <dep package="glib"/>
-      <dep package="cairo"/>
-      <dep package="gtk-doc"/>
-      <dep package="gobject-introspection"/>
-      <dep package="harfbuzz"/>
-      <dep package="libXft"/>
-      <dep package="fontconfig"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="gdk-pixbuf" autogen-sh="configure"
-             autogenargs="--disable-introspection">
-    <dependencies>
-      <dep package="glib"/>
-    </dependencies>
-    <branch module="/pub/GNOME/sources/gdk-pixbuf/2.27/gdk-pixbuf-2.27.3.tar.xz" version="2.27.3"
-            repo="ftp.gnome.org"
-            hash="sha256:843d55b8e0e27285a3e5267555d2827a206e93faf2a44c0fa322622177216fb2"/>
-  </autotools>
-
-  <autotools id="gtk+" autogen-sh="configure"
-             autogenargs="--disable-introspection">
-    <dependencies>
-      <dep package="glib"/>
-      <dep package="cairo"/>
-      <dep package="at-spi2-atk"/>
-      <dep package="gdk-pixbuf"/>
-    </dependencies>
-    <branch module="/pub/GNOME/sources/gtk+/3.13/gtk+-3.13.5.tar.xz" version="3.13.5"
-            repo="ftp.gnome.org"
-            hash="sha256:c8648197d0a79edda0faeab6c17d18f32118dfb1922e747738964a04336e9631">
-    </branch>
-  </autotools>
-
-  <autotools id="glib"
-             autogen-sh="configure"
-             autogenargs="--disable-dtrace">
-    <dependencies>
-      <dep package="libffi"/>
-    </dependencies>
-    <branch module="/pub/GNOME/sources/glib/2.41/glib-2.41.2.tar.xz" version="2.41.2"
-            repo="ftp.gnome.org"
-            hash="sha256:da1f7258655f0e196b9304cb9515784634f3797437923e236bb3466348811c96"/>
-  </autotools>
-
-  <autotools id="atk"
-             autogenargs="--disable-introspection">
-    <branch repo="git.gnome.org"
-            revision="gnome-3-12">
-    </branch>
-  </autotools>
-
   <autotools id="gobject-introspection">
     <branch repo="git.gnome.org"
             tag="GOBJECT_INTROSPECTION_1_43_3">
@@ -102,16 +44,6 @@
       <dep package="cairo"/>
       <dep package="python2-devel"/>
     </dependencies>
-  </autotools>
-
-  <autotools id="libsoup"
-             autogenargs="--without-gnome --disable-introspection">
-    <dependencies>
-      <dep package="glib-networking"/>
-    </dependencies>
-    <branch repo="git.gnome.org"
-            revision="2.48.0">
-    </branch>
   </autotools>
 
   <autotools id="libsecret" autogen-sh="configure">
@@ -262,7 +194,7 @@
   </autotools>
 
   <autotools id="epiphany">
-    <branch repo="git.gnome.org">
+    <branch repo="git.gnome.org" tag="3.18.0">
     </branch>
     <dependencies>
       <dep package="appstream-glib"/>
