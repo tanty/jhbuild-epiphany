@@ -162,7 +162,8 @@
   </autotools>
 
   <autotools id="m4-common">
-    <branch repo="github.com" module="desrt/m4-common.git"/>
+    <branch repo="git.gnome.org">
+    </branch>
   </autotools>
 
   <autotools id="gcab">
