@@ -62,7 +62,7 @@
     </dependencies>
   </autotools>
 
-  <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DDEVELOPER_MODE=ON">
+  <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DENABLE_MINIBROWSER=ON">
     <pkg-config>webkit2gtk-4.0.pc</pkg-config>
     <branch repo="webkitgtk.org"
             module="webkitgtk-2.10.7.tar.xz" version="2.10.7"
