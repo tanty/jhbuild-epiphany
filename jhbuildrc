@@ -25,7 +25,7 @@ modules = [ 'jhbuild-stable-epiphany' ]
 # modules = ['meta-gnome-desktop']
 
 # what directory should the source be checked out to?
-checkoutroot = os.path.join(script_path, 'checkout')
+checkoutroot = os.path.join(script_path, 'jhbuild-checkout')
 
 # the prefix to configure/install modules to (must have write access)
 prefix = os.path.join(script_path, 'install')
@@ -40,3 +40,9 @@ autogenargs='--disable-static --disable-gtk-doc --disable-introspection'
 # A string listing additional arguments to be passed to make.
 # Set makeargs to 'V=1' for verbose build output.
 #makeargs = ''
+
+# LLVM requires that builddir != srcdir, and it's not possible to do that in jhbuild only
+# for a module, so we do it here globally since it's a good idea for all other modules as well.
+buildroot = os.path.join(os.path.dirname(checkoutroot), "jhbuild-build")
+
+os.environ['LLVMPIPE_LIBGL_PATH'] = os.path.abspath(os.path.join(buildroot, 'Mesa', 'lib', 'gallium'))

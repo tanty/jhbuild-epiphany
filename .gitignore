@@ -1,4 +1,5 @@
-/checkout/
+/jhbuild-checkout/
+/jhbuild-build/
 /install/
 /jhbuild-install/
 /jhbuild-webkit/

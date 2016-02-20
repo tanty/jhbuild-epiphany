@@ -8,6 +8,8 @@
       href="git://git.gnome.org/"/>
   <repository type="git" name="github.com"
       href="git://github.com/"/>
+  <repository type="git" name="git.freedesktop.org"
+      href="git://anongit.freedesktop.org/"/>
 
   <!-- tarball repos -->
   <repository type="tarball" name="ftp.gnome.org"
@@ -15,7 +17,6 @@
   <repository type="tarball" name="webkitgtk.org"
       href="http://webkitgtk.org/releases/"/>
 
-  <include href="jhbuild-webkit/jhbuild-optional.modules"/>
   <include href="jhbuild-webkit/jhbuild.modules"/>
 
   <metamodule id="jhbuild-stable-epiphany">
@@ -65,9 +66,9 @@
   <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DENABLE_MINIBROWSER=ON">
     <pkg-config>webkit2gtk-4.0.pc</pkg-config>
     <branch repo="webkitgtk.org"
-            module="webkitgtk-2.10.7.tar.xz" version="2.10.7"
-            hash="sha256:990d62c82ed6dede31a6ff0a82d847f16b812842ff3e1093d17113627652864e"
-            size="10988396">
+            module="webkitgtk-2.11.90.tar.xz" version="2.11.90"
+            hash="sha256:027c2cb4816a524f100d9c79a4a8307ada073c2bdb6dbbf34034764e1aee3bb9"
+            size="11727936">
     </branch>
     <dependencies>
       <dep package="at-spi2-core"/>
@@ -95,6 +96,62 @@
       <dep package="enchant"/>
     </suggests>
   </cmake>
+
+  <autotools id="libqmi" supports-non-srcdir-builds="no">
+    <branch repo="git.freedesktop.org" module="libqmi.git"/>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="gtk-doc"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="ModemManager" supports-non-srcdir-builds="no"
+             autogenargs="--with-udev-base-dir=${libdir}/udev --with-systemdsystemunitdir=no --disable-more-warnings">
+    <branch repo="git.freedesktop.org"
+            module="ModemManager/ModemManager.git" checkoutdir="ModemManager" />
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="dbus-glib"/>
+      <dep package="gtk-doc"/>
+      <dep package="polkit"/>
+      <dep package="gudev"/>
+      <dep package="ppp"/>
+      <dep package="libmbim"/>
+      <dep package="libqmi"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="geoclue" supports-non-srcdir-builds="no">
+    <if condition-unset="linux">
+      <autogenargs value="--disable-3g-source --disable-modem-gps-source --disable-wifi-source"/>
+    </if>
+    <branch repo="git.freedesktop.org"/>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="geoip"/>
+      <dep package="json-glib"/>
+      <dep package="libsoup"/>
+      <dep package="libxml2"/>
+      <if condition-set="linux">
+        <dep package="ModemManager"/>
+        <dep package="NetworkManager"/>
+      </if>
+    </dependencies>
+  </autotools>
+
+  <autotools id="upower" supports-non-srcdir-builds="no">
+    <branch repo="git.freedesktop.org" />
+    <dependencies>
+      <dep package="polkit"/>
+      <dep package="dbus-glib"/>
+      <dep package="gobject-introspection"/>
+    </dependencies>
+    <suggests>
+      <if condition-set="linux">
+        <dep package="gudev"/>
+      </if>
+    </suggests>
+  </autotools>
 
   <autotools id="adwaita-icon-theme">
     <branch repo="git.gnome.org"
@@ -166,7 +223,7 @@
     </branch>
   </autotools>
 
-  <autotools id="gcab">
+  <autotools id="gcab" supports-non-srcdir-builds="no">
     <branch repo="git.gnome.org">
     </branch>
     <dependencies>
