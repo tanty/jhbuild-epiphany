@@ -16,6 +16,8 @@
       href="http://ftp.gnome.org"/>
   <repository type="tarball" name="webkitgtk.org"
       href="http://webkitgtk.org/releases/"/>
+  <repository type="tarball" name="xmlsoft.org"
+      href="http://xmlsoft.org"/>
 
   <include href="jhbuild-webkit/jhbuild.modules"/>
 
@@ -34,66 +36,167 @@
     </dependencies>
   </metamodule>
 
-  <autotools id="gobject-introspection">
+  <autotools id="libxml2" supports-non-srcdir-builds="no"
+             autogen-sh="./autogen.sh; ./configure --with-python=no">
+    <branch module="/sources/libxml2-2.9.3.tar.gz" version="2.9.3"
+            repo="xmlsoft.org"
+            hash="sha256:4de9e31f46b44d34871c22f54bfc54398ef124d6f7cafb1f4a5958fbcd3ba12d"
+            md5sum="daece17e045f1c107610e137ab50c179"/>
+  </autotools>
+
+  <autotools id="glib">
     <branch repo="git.gnome.org"
-            tag="GOBJECT_INTROSPECTION_1_43_3">
+            tag="2.48.0">
     </branch>
     <dependencies>
-      <dep package="bison"/>
-      <dep package="flex"/>
-      <dep package="glib"/>
-      <dep package="cairo"/>
-      <dep package="python2-devel"/>
+      <dep package="gtk-doc"/>
+      <dep package="libffi"/>
+      <dep package="libpcre"/>
+      <dep package="zlib"/>
     </dependencies>
+    <after>
+      <dep package="shared-mime-info"/>
+    </after>
   </autotools>
 
-  <autotools id="libsecret" autogen-sh="configure">
-    <branch repo="ftp.gnome.org"
-            module="/pub/GNOME/sources/libsecret/0.14/libsecret-0.14.tar.xz" version="0.14"
-            hash="sha256:58a5b9370c093a7a2788869ed59bc56351797a775e100a9644e637851f9713b5"/>
-  </autotools>
-
-  <autotools id="vala" autogenargs="--enable-vapigen" supports-non-srcdir-builds="no">
-    <pkg-config>libvala-0.22.pc</pkg-config>
-    <branch repo="ftp.gnome.org"
-            module="/pub/GNOME/sources/vala/0.22/vala-0.22.1.tar.xz" version="0.22"
-            hash="sha256:92c61b94a427f281ba2537b69135a3be23248b153268057d7195003dd6aba28c"/>
+  <autotools id="pango" autogenargs="--with-cairo">
+    <branch repo="git.gnome.org">
+    </branch>
     <dependencies>
       <dep package="glib"/>
+      <dep package="cairo"/>
+      <dep package="gtk-doc"/>
+      <dep package="gobject-introspection"/>
+      <if condition-set="x11">
+        <dep package="libXft"/>
+      </if>
+      <if condition-unset="quartz">
+        <dep package="harfbuzz"/>
+        <dep package="fontconfig"/>
+      </if>
     </dependencies>
+  </autotools>
+
+  <autotools id="gdk-pixbuf">
+    <branch repo="git.gnome.org"
+            tag="2.33.2">
+    </branch>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="gobject-introspection"/>
+      <dep package="gtk-doc"/>
+      <dep package="libjpeg"/>
+      <dep package="libpng"/>
+      <dep package="libtiff"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="gtk+">
+    <branch repo="git.gnome.org"
+            tag="3.20.0">
+    </branch>
+    <if condition-set="x11">
+      <autogenargs value="--enable-x11-backend"/>
+    </if>
+    <if condition-set="wayland">
+      <autogenargs value="--enable-wayland-backend"/>
+    </if>
+    <branch/>
+    <dependencies>
+      <dep package="atk"/>
+      <dep package="glib"/>
+      <dep package="cairo"/>
+      <dep package="pango"/>
+      <dep package="gdk-pixbuf"/>
+      <dep package="gtk-doc"/>
+      <dep package="gobject-introspection"/>
+      <dep package="libepoxy"/>
+      <dep package="at-spi2-atk"/>
+      <if condition-set="wayland">
+        <dep package="libxkbcommon"/>
+        <dep package="wayland"/>
+        <dep package="wayland-egl"/>
+        <dep package="wayland-protocols"/>
+      </if>
+    </dependencies>
+    <suggests>
+      <dep package="shared-mime-info"/>
+    </suggests>
+  </autotools>
+
+  <autotools id="libsoup" autogenargs="--disable-tls-check --disable-vala">
+    <branch repo="git.gnome.org"
+            tag="2.54.0.1">
+    </branch>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="libxml2"/>
+      <dep package="sqlite3"/>
+      <dep package="gobject-introspection"/>
+      <dep package="m4-common"/>
+      <dep package="vala"/>
+    </dependencies>
+    <suggests>
+      <dep package="glib-networking"/>
+    </suggests>
   </autotools>
 
   <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DENABLE_MINIBROWSER=ON">
+    <if condition-unset="x11">
+      <cmakeargs value="-DENABLE_X11_TARGET=OFF"/>
+    </if>
+    <if condition-unset="wayland">
+      <cmakeargs value="-DENABLE_WAYLAND_TARGET=OFF"/>
+    </if>
     <pkg-config>webkit2gtk-4.0.pc</pkg-config>
     <branch repo="webkitgtk.org"
-            module="webkitgtk-2.11.92.tar.xz" version="2.11.92"
-            hash="sha256:f4ef94e7c901e51e449290604678b6777d85581d4b9c0d7da7b720489d475939"
-            size="11686688">
+            module="webkitgtk-2.12.0.tar.xz" version="2.12.0"
+            hash="sha256:a68604f8fd1bcb247d647709290226289b90c16acb1f3730538b688db8df5ea6"
+            size="11687224">
     </branch>
     <dependencies>
+      <dep package="c++"/>
       <dep package="at-spi2-core"/>
       <dep package="cairo"/>
+      <dep package="enchant"/>
       <dep package="fontconfig"/>
+      <dep package="freetype2"/>
       <dep package="geoclue"/>
-      <dep package="libxml2"/>
+      <dep package="gobject-introspection"/>
+      <dep package="gperf"/>
       <dep package="gst-plugins-base"/>
       <dep package="gtk+"/>
       <!-- GTK+ 2.x required for the plugin process -->
       <dep package="gtk+-2"/>
-      <dep package="pango"/>
-      <dep package="libsoup"/>
-      <dep package="gobject-introspection"/>
-      <dep package="gperf"/>
+      <dep package="harfbuzz"/>
+      <dep package="hyphen"/>
       <dep package="libicu"/>
-      <dep package="libXt"/>
-      <dep package="ruby"/>
+      <dep package="libjpeg"/>
+      <dep package="libnotify"/>
+      <dep package="libpng"/>
       <dep package="libsecret"/>
+      <dep package="libsoup"/>
       <dep package="libwebp"/>
+      <dep package="libxml2"/>
+      <dep package="libxslt"/>
+      <!-- Either libGL or libGLES is required. -->
+      <dep package="mesa-libGLES"/>
+      <dep package="pango"/>
+      <dep package="ruby"/>
+      <dep package="sqlite3"/>
+      <if condition-set="x11">
+        <dep package="libXcomposite"/>
+        <dep package="libXdamage"/>
+        <dep package="libXrender"/>
+        <dep package="libXt"/>
+      </if>
+      <if condition-set="wayland">
+        <dep package="wayland"/>
+      </if>
     </dependencies>
     <suggests>
-      <dep package="libxslt"/>
-      <dep package="sqlite3"/>
-      <dep package="enchant"/>
+      <dep package="gst-plugins-bad"/>
+      <dep package="gst-plugins-good"/>
     </suggests>
   </cmake>
 
@@ -108,12 +211,12 @@
   <autotools id="ModemManager" supports-non-srcdir-builds="no"
              autogenargs="--with-udev-base-dir=${libdir}/udev --with-systemdsystemunitdir=no --disable-more-warnings">
     <branch repo="git.freedesktop.org"
-            module="ModemManager/ModemManager.git" checkoutdir="ModemManager" />
+	    module="ModemManager/ModemManager.git" checkoutdir="ModemManager" />
     <dependencies>
       <dep package="glib"/>
       <dep package="dbus-glib"/>
       <dep package="gtk-doc"/>
-      <dep package="polkit"/>
+      <dep package="polkit-gobject"/>
       <dep package="gudev"/>
       <dep package="ppp"/>
       <dep package="libmbim"/>
@@ -121,28 +224,36 @@
     </dependencies>
   </autotools>
 
-  <autotools id="geoclue" supports-non-srcdir-builds="no">
+  <autotools id="geoclue" autogenargs="--with-systemdsystemunitdir=no" supports-non-srcdir-builds="no">
     <if condition-unset="linux">
-      <autogenargs value="--disable-3g-source --disable-modem-gps-source --disable-wifi-source"/>
+      <autogenargs value="--disable-3g-source --disable-modem-gps-source --disable-cdma-source"/>
     </if>
     <branch repo="git.freedesktop.org"/>
     <dependencies>
       <dep package="glib"/>
-      <dep package="geoip"/>
       <dep package="json-glib"/>
       <dep package="libsoup"/>
       <dep package="libxml2"/>
       <if condition-set="linux">
         <dep package="ModemManager"/>
-        <dep package="NetworkManager"/>
       </if>
     </dependencies>
   </autotools>
 
-  <autotools id="upower" supports-non-srcdir-builds="no">
+  <autotools id="libgrss" supports-non-srcdir-builds="no">
+    <branch repo="git.gnome.org">
+    </branch>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="libsoup"/>
+      <dep package="libxml2"/>
+    </dependencies>
+  </autotools>
+
+  <autotools id="upower" supports-non-srcdir-builds="no"
+	                 autogenargs="--with-systemdsystemunitdir=no">
     <branch repo="git.freedesktop.org" />
     <dependencies>
-      <dep package="polkit"/>
       <dep package="dbus-glib"/>
       <dep package="gobject-introspection"/>
     </dependencies>
@@ -153,53 +264,9 @@
     </suggests>
   </autotools>
 
-  <autotools id="adwaita-icon-theme">
-    <branch repo="git.gnome.org"
-            revision="master">
-    </branch>
-    <dependencies>
-      <dep package="hicolor-icon-theme"/>
-      <dep package="gnome-common"/>
-      <dep package="intltool"/>
-      <dep package="gtk+"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="libmediaart" autogenargs="--disable-qt">
-    <branch repo="git.gnome.org"
-            revision="0.4.0">
-    </branch>
-    <dependencies>
-      <dep package="gdk-pixbuf"/>
-      <dep package="glib"/>
-      <dep package="gtk-doc"/>
-      <dep package="vala"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="nautilus">
-    <branch repo="git.gnome.org"
-            tag="3.15.4">
-    </branch>
-    <dependencies>
-      <dep package="intltool"/>
-      <dep package="glib"/>
-      <dep package="gtk+"/>
-      <dep package="pango"/>
-      <dep package="libnotify"/>
-      <dep package="libxml2"/>
-      <dep package="gnome-desktop"/>
-      <dep package="gsettings-desktop-schemas"/>
-      <dep package="tracker"/>
-      <dep package="exempi"/>
-      <dep package="libexif"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="evince" autogenargs="--enable-browser-plugin"
+  <autotools id="evince" autogenargs="--enable-browser-plugin --enable-introspection"
                          supports-parallel-builds="no">
-    <branch repo="git.gnome.org"
-            revision="3.14.0">
+    <branch repo="git.gnome.org">
     </branch>
     <dependencies>
       <dep package="intltool"/>
@@ -218,9 +285,37 @@
     </suggests>
   </autotools>
 
-  <autotools id="m4-common">
+  <!-- evolution miner broken:
+       https://bugzilla.gnome.org/show_bug.cgi?id=678235 -->
+  <autotools id="tracker" supports-non-srcdir-builds="no"
+             autogenargs="--enable-miner-firefox=no --enable-miner-thunderbird=no --enable-miner-evolution=no --disable-nautilus-extension --disable-tracker-needle --disable-tracker-preferences --with-unicode-support=libicu --with-bash-completion-dir=${prefix}/share/bash-completion/completions"
+             check-target="false">
     <branch repo="git.gnome.org">
     </branch>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="libgrss"/>
+      <dep package="libicu"/>
+      <dep package="libmediaart"/>
+      <dep package="libpng"/>
+      <dep package="libuuid"/>
+      <dep package="sqlite3"/>
+      <dep package="vala"/>
+    </dependencies>
+    <suggests>
+      <dep package="libsecret"/>
+      <dep package="gstreamer"/>
+      <dep package="gst-plugins-base"/>
+      <dep package="upower"/>
+      <dep package="libgsf"/>
+      <dep package="gdk-pixbuf"/>
+      <dep package="poppler"/>
+      <dep package="totem-pl-parser"/>
+      <dep package="dconf"/>
+      <if condition-set="linux">
+        <dep package="NetworkManager"/>
+      </if>
+    </suggests>
   </autotools>
 
   <autotools id="gcab" supports-non-srcdir-builds="no">
@@ -228,53 +323,10 @@
     </branch>
     <dependencies>
       <dep package="glib"/>
+      <dep package="gobject-introspection"/>
       <dep package="vala"/>
       <dep package="zlib"/>
     </dependencies>
-  </autotools>
-
-  <autotools id="appstream-glib">
-    <if condition-set="freebsd">
-      <autogenargs value="LIBARCHIVE_CFLAGS=' ' LIBARCHIVE_LIBS='-larchive'"/>
-    </if>
-    <branch repo="github.com" module="hughsie/appstream-glib.git" tag="appstream_glib_0_5_0"/>
-    <dependencies>
-      <dep package="freetype2"/>
-      <dep package="gcab"/>
-      <dep package="gdk-pixbuf"/>
-      <dep package="glib"/>
-      <dep package="gobject-introspection"/>
-      <dep package="libarchive"/>
-      <dep package="libsoup"/>
-      <dep package="libyaml"/>
-      <dep package="sqlite3"/>
-    </dependencies>
-  </autotools>
-
-  <autotools id="epiphany">
-    <branch repo="git.gnome.org" tag="3.18.0">
-    </branch>
-    <dependencies>
-      <dep package="appstream-glib"/>
-      <dep package="m4-common"/>
-      <dep package="intltool"/>
-      <dep package="iso-codes"/>
-      <dep package="gtk+"/>
-      <dep package="startup-notification"/>
-      <dep package="WebKit"/>
-      <dep package="gcr"/>
-      <dep package="avahi"/>
-      <dep package="gnome-desktop"/>
-      <dep package="libwnck"/>
-      <dep package="libsecret"/>
-      <dep package="libsoup"/>
-    </dependencies>
-    <suggests>
-      <dep package="enchant"/>
-      <dep package="libnotify"/>
-      <dep package="libcanberra"/>
-      <dep package="nss"/>
-    </suggests>
   </autotools>
 
 </moduleset>

@@ -18,7 +18,10 @@ popd
 if [ ! -d ${BASE_PATH}/jhbuild-webkit ]; then
     svn export -r HEAD http://svn.webkit.org/repository/webkit/releases/WebKitGTK/webkit-${VERSION}/Tools/gtk ${BASE_PATH}/jhbuild-webkit
 fi
-${BASE_PATH}/jhbuild-webkit/install-dependencies
+
+# Commented out to avoid asking for sudo in Debian. Just run this as root:
+#${BASE_PATH}/jhbuild-webkit/install-dependencies
+
 ${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc sysdeps --install
-# ${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc build -f --nodeps
+#${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc build -f --nodeps
 ${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc build --nodeps

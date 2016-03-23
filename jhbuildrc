@@ -13,7 +13,7 @@ script_path = os.path.dirname(os.path.realpath(__file__))
 # or a URL of a module set file on a web server.
 # moduleset = 'gnome-apps-3.12'
 #moduleset = [ 'gnome-apps-3.12', 'file:///opt/epiphany/jhbuild.modules', 'file:///opt/epiphany/jhbuild-optional.modules' ]
-moduleset = [ 'gnome-apps-3.12', os.path.join(script_path,'jhbuild-epiphany.modules') ]
+moduleset = [ 'gnome-apps-3.20', os.path.join(script_path,'jhbuild-epiphany.modules') ]
 
 # A list of the modules to build.  Defaults to the GNOME core and tested apps.
 # modules = [ 'meta-gnome-core', 'meta-gnome-apps-tested' ]
