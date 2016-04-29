@@ -36,6 +36,7 @@ prefix = os.path.join(script_path, 'install')
 # extra arguments to pass to all autogen.sh scripts
 # to speed up builds of GNOME, try '--disable-static --disable-gtk-doc'
 autogenargs='--disable-static --disable-gtk-doc --disable-introspection'
+cmakeargs='-DENABLE_INTROSPECTION=OFF'
 
 # A string listing additional arguments to be passed to make.
 # Set makeargs to 'V=1' for verbose build output.
