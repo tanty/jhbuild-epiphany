@@ -124,6 +124,20 @@
     </suggests>
   </autotools>
 
+  <autotools id="glib-networking" autogenargs="--enable-installed-tests">
+    <branch repo="git.gnome.org"
+            tag="2.48.2">
+    </branch>
+    <dependencies>
+      <dep package="glib"/>
+      <dep package="intltool"/>
+      <dep package="libproxy"/>
+      <dep package="gsettings-desktop-schemas"/>
+      <dep package="gnutls"/>
+      <dep package="p11-kit"/>
+    </dependencies>
+  </autotools>
+
   <autotools id="libsoup" autogenargs="--disable-tls-check --disable-vala">
     <branch repo="git.gnome.org"
             tag="2.54.0.1">
