@@ -164,9 +164,9 @@
     </if>
     <pkg-config>webkit2gtk-4.0.pc</pkg-config>
     <branch repo="webkitgtk.org"
-            module="webkitgtk-2.12.5.tar.xz" version="2.12.5"
-            hash="sha256:6b147854b864a5f115fadb97b2b6200b2f696db015216a34e7298d11c88b1c40"
-            size="11712488">
+            module="webkitgtk-2.13.91.tar.xz" version="2.13.91"
+            hash="sha256:ba5ce8ea2421b99aebb44638e744241d828f1531d4163741c0fad09682ce2026"
+            size="13410640">
     </branch>
     <dependencies>
       <dep package="c++"/>
