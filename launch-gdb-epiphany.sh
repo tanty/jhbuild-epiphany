@@ -15,4 +15,4 @@ export XCURSOR_THEME=Adwaita
 
 #export WEB_PROCESS_CMD_PREFIX='gdbserver localhost:8080'
 
-${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc run gdb ${BASE_PATH}/install/bin/epiphany $@
+${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc run gdb -ex 'handle SIG33 pass nostop noprint' -ex 'set pagination 0' -ex 'r' $@ ${BASE_PATH}/install/bin/epiphany
