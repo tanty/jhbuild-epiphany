@@ -13,4 +13,4 @@ export LIBGL_DRI3_DISABLE=1
 export XCURSOR_THEME=Adwaita
 #export XCURSOR_THEME=DMZ-White
 
-${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc run ${BASE_PATH}/install/bin/epiphany --incognito-mode --profile ${HOME}/.config/epiphany $@
+${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/epiphany-jhbuildrc run ${BASE_PATH}/epiphany-install/bin/epiphany --incognito-mode --profile ${HOME}/.config/epiphany $@

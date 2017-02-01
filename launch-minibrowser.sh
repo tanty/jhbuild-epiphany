@@ -13,4 +13,4 @@ export LIBGL_DRI3_DISABLE=1
 export XCURSOR_THEME=Adwaita
 #export XCURSOR_THEME=DMZ-White
 
-${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc run ${BASE_PATH}/install/libexec/webkit2gtk-4.0/MiniBrowser '--enable-plugins=false' $@
+${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/epiphany-jhbuildrc run ${BASE_PATH}/epiphany-install/libexec/webkit2gtk-4.0/MiniBrowser '--enable-plugins=false' $@

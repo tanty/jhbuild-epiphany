@@ -15,4 +15,4 @@ export XCURSOR_THEME=Adwaita
 
 # export WEBKIT_DISABLE_COMPOSITING_MODE=1
 
-${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc run ${BASE_PATH}/install/bin/epiphany $@
+${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/epiphany-jhbuildrc run ${BASE_PATH}/epiphany-install/bin/epiphany $@

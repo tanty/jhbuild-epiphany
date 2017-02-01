@@ -13,4 +13,4 @@ export LIBGL_DRI3_DISABLE=1
 export XCURSOR_THEME=Adwaita
 #export XCURSOR_THEME=DMZ-White
 
-${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc run gdb -ex 'handle SIG33 pass nostop noprint' -ex 'handle SIGUSR2 pass nostop noprint' -ex 'set pagination 0' $@
+${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/epiphany-jhbuildrc run gdb -ex 'handle SIG33 pass nostop noprint' -ex 'handle SIGUSR2 pass nostop noprint' -ex 'set pagination 0' $@

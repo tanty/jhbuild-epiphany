@@ -3,7 +3,7 @@
 BASE_PATH="`dirname \"$0\"`"
 FULL_SCRIPT_PATH=$(readlink -f $0)
 FULL_BASE_PATH="`dirname \"$FULL_SCRIPT_PATH\"`"
-VERSION=`grep webkitgtk ${BASE_PATH}/jhbuild-epiphany.modules | grep version | cut -d \" -f 4`
+VERSION=`grep webkitgtk ${BASE_PATH}/epiphany-jhbuild.modules | grep version | cut -d \" -f 4`
 
 
 sed -e 's|@BASE_PATH@|'${FULL_BASE_PATH}'|g' ${BASE_PATH}/jhbuild-epiphany-browser.desktop.in > ${BASE_PATH}/jhbuild-epiphany-browser.desktop
@@ -22,6 +22,6 @@ fi
 # Commented out to avoid asking for sudo in Debian. Just run this as root:
 #${BASE_PATH}/jhbuild-webkit/install-dependencies
 
-${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc sysdeps --install
-#${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc build -f --nodeps
-${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/jhbuildrc build --nodeps
+${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/epiphany-jhbuildrc sysdeps --install
+#${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/epiphany-jhbuildrc build -f --nodeps
+${BASE_PATH}/jhbuild-install/bin/jhbuild -f ${BASE_PATH}/epiphany-jhbuildrc build --nodeps

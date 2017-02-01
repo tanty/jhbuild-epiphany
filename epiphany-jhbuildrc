@@ -13,7 +13,7 @@ script_path = os.path.dirname(os.path.realpath(__file__))
 # or a URL of a module set file on a web server.
 # moduleset = 'gnome-apps-3.12'
 #moduleset = [ 'gnome-apps-3.12', 'file:///opt/epiphany/jhbuild.modules', 'file:///opt/epiphany/jhbuild-optional.modules' ]
-moduleset = [ 'gnome-apps-3.20', os.path.join(script_path,'jhbuild-epiphany.modules') ]
+moduleset = [ 'gnome-apps-3.20', os.path.join(script_path,'epiphany-jhbuild.modules') ]
 
 # A list of the modules to build.  Defaults to the GNOME core and tested apps.
 # modules = [ 'meta-gnome-core', 'meta-gnome-apps-tested' ]
@@ -25,10 +25,10 @@ modules = [ 'jhbuild-stable-epiphany' ]
 # modules = ['meta-gnome-desktop']
 
 # what directory should the source be checked out to?
-checkoutroot = os.path.join(script_path, 'jhbuild-checkout')
+checkoutroot = os.path.join(script_path, 'epiphany-checkout')
 
 # the prefix to configure/install modules to (must have write access)
-prefix = os.path.join(script_path, 'install')
+prefix = os.path.join(script_path, 'epiphany-install')
 
 # custom CFLAGS / environment pieces for the build
 # os.environ['CFLAGS'] = '-Wall -g -O0'
@@ -44,6 +44,9 @@ cmakeargs='-DENABLE_INTROSPECTION=OFF'
 
 # LLVM requires that builddir != srcdir, and it's not possible to do that in jhbuild only
 # for a module, so we do it here globally since it's a good idea for all other modules as well.
-buildroot = os.path.join(os.path.dirname(checkoutroot), "jhbuild-build")
+buildroot = os.path.join(os.path.dirname(checkoutroot), "epiphany-build")
 
-os.environ['LLVMPIPE_LIBGL_PATH'] = os.path.abspath(os.path.join(buildroot, 'Mesa', 'lib', 'gallium'))
+#os.environ['LLVMPIPE_LIBGL_PATH'] = os.path.abspath(os.path.join(buildroot, 'Mesa', 'lib', 'gallium'))
+# For the layout tests: path where llvmpipe/software-only mesa libraries are installed.
+os.environ['LLVMPIPE_LIBGL_PATH'] = os.path.abspath(os.path.join(prefix, 'softGL', 'lib'))
+
