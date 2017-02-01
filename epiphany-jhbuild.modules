@@ -44,15 +44,15 @@
             md5sum="daece17e045f1c107610e137ab50c179"/>
   </autotools>
 
-  <autotools id="glib">
+  <autotools id="glib" autogenargs="--enable-installed-tests --disable-libmount">
     <branch repo="git.gnome.org"
-            tag="2.48.0">
+            tag="2.50.2">
     </branch>
     <dependencies>
-      <dep package="gtk-doc"/>
+      <dep package="gettext"/>
       <dep package="libffi"/>
-      <dep package="libpcre"/>
       <dep package="zlib"/>
+      <dep package="libpcre"/>
     </dependencies>
     <after>
       <dep package="shared-mime-info"/>
@@ -65,7 +65,6 @@
     <dependencies>
       <dep package="glib"/>
       <dep package="cairo"/>
-      <dep package="gtk-doc"/>
       <dep package="gobject-introspection"/>
       <if condition-set="x11">
         <dep package="libXft"/>
@@ -79,12 +78,11 @@
 
   <autotools id="gdk-pixbuf">
     <branch repo="git.gnome.org"
-            tag="2.33.2">
+            tag="2.36.4">
     </branch>
     <dependencies>
       <dep package="glib"/>
       <dep package="gobject-introspection"/>
-      <dep package="gtk-doc"/>
       <dep package="libjpeg"/>
       <dep package="libpng"/>
       <dep package="libtiff"/>
@@ -93,7 +91,7 @@
 
   <autotools id="gtk+">
     <branch repo="git.gnome.org"
-            tag="3.20.0">
+            tag="3.22.0">
     </branch>
     <if condition-set="x11">
       <autogenargs value="--enable-x11-backend"/>
@@ -108,7 +106,6 @@
       <dep package="cairo"/>
       <dep package="pango"/>
       <dep package="gdk-pixbuf"/>
-      <dep package="gtk-doc"/>
       <dep package="gobject-introspection"/>
       <dep package="libepoxy"/>
       <dep package="at-spi2-atk"/>
@@ -120,6 +117,8 @@
       </if>
     </dependencies>
     <suggests>
+      <!-- Many GTK+ apps require desktop-file-validate. -->
+      <dep package="desktop-file-utils"/>
       <dep package="shared-mime-info"/>
     </suggests>
   </autotools>
@@ -218,7 +217,6 @@
     <branch repo="git.freedesktop.org" module="libqmi.git"/>
     <dependencies>
       <dep package="glib"/>
-      <dep package="gtk-doc"/>
     </dependencies>
   </autotools>
 
@@ -229,7 +227,6 @@
     <dependencies>
       <dep package="glib"/>
       <dep package="dbus-glib"/>
-      <dep package="gtk-doc"/>
       <dep package="polkit-gobject"/>
       <dep package="gudev"/>
       <dep package="ppp"/>
@@ -330,6 +327,34 @@
         <dep package="NetworkManager"/>
       </if>
     </suggests>
+  </autotools>
+
+  <autotools id="NetworkManager"
+             autogenargs="--with-udev-dir=${libdir}/udev --with-systemdsystemunitdir=no --with-crypto=gnutls --disable-wimax --disable-more-warnings --disable-json-validation --without-nmcli">
+    <branch repo="git.freedesktop.org"
+	          module="NetworkManager/NetworkManager.git"
+            checkoutdir="NetworkManager"/>
+    <dependencies>
+      <dep package="libndp"/>
+      <dep package="libnl"/>
+      <dep package="libnl-genl"/>
+      <dep package="libnl-route"/>
+      <dep package="glib"/>
+      <dep package="iptables"/>
+      <dep package="dbus-glib"/>
+      <dep package="libgcrypt"/>
+      <dep package="libuuid"/>
+      <dep package="polkit-agent"/>
+      <dep package="gudev"/>
+      <dep package="gnutls"/>
+      <dep package="readline"/>
+      <dep package="ppp"/>
+      <dep package="vala"/>
+      <dep package="wireless-tools"/>
+      <if condition-set="systemd">
+        <dep package="libsystemd"/>
+      </if>
+    </dependencies>
   </autotools>
 
   <autotools id="gcab" supports-non-srcdir-builds="no">
