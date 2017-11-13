@@ -27,7 +27,7 @@
     </dependencies>
   </metamodule>
 
-  <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DENABLE_MINIBROWSER=ON">
+  <cmake id="WebKit" cmakeargs="-DPORT=GTK -DCMAKE_BUILD_TYPE=Release -DENABLE_MINIBROWSER=ON -DUSE_WOFF2=OFF">
     <if condition-unset="x11">
       <cmakeargs value="-DENABLE_X11_TARGET=OFF"/>
     </if>
@@ -36,9 +36,9 @@
     </if>
     <pkg-config>webkit2gtk-4.0.pc</pkg-config>
     <branch repo="webkitgtk.org"
-            module="webkitgtk-2.18.3.tar.xz" version="2.18.3"
-            hash="sha256:e15420e1616a6f70f321541d467af5ca285bff66b1e0fa68a01df3ccf1b18f9e"
-            size="14824668">
+            module="webkitgtk-2.19.1.tar.xz" version="2.19.1"
+            hash="sha256:9f78555486ea11d53c90394da4d38a7d5b06e76d5b563182a4ed8326adc4cce5"
+            size="15501396">
     </branch>
     <dependencies>
       <dep package="c++"/>
