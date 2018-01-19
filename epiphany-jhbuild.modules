@@ -51,7 +51,7 @@
       <dep package="gobject-introspection"/>
       <dep package="gperf"/>
       <dep package="gst-plugins-base"/>
-      <dep package="gtk+"/>
+      <dep package="gtk+-3"/>
       <!-- GTK+ 2.x required for the plugin process -->
       <dep package="gtk+-2"/>
       <dep package="harfbuzz"/>
@@ -89,11 +89,11 @@
   <autotools id="evince" autogenargs="--enable-browser-plugin --enable-introspection"
                          supports-parallel-builds="no">
     <branch repo="git.gnome.org"
-	    revision="gnome-3-24"/>
+	    revision="gnome-3-26"/>
     <dependencies>
       <dep package="intltool"/>
       <dep package="glib"/>
-      <dep package="gtk+"/>
+      <dep package="gtk+-3"/>
       <dep package="libxml2"/>
       <dep package="adwaita-icon-theme"/>
       <dep package="libsecret"/>
@@ -107,25 +107,33 @@
     </suggests>
   </autotools>
 
-  <autotools id="epiphany"
-             autogenargs="--enable-debug">
+  <meson id="epiphany" mesonargs="--buildtype=debug">
     <branch repo="git.gnome.org"
-	    revision="gnome-3-24"/>
+	    revision="gnome-3-26"/>
     <dependencies>
-      <dep package="appstream-glib"/>
-      <dep package="intltool"/>
-      <dep package="iso-codes"/>
-      <dep package="gtk+"/>
-      <dep package="m4-common"/>
-      <dep package="startup-notification"/>
       <dep package="WebKit"/>
+      <dep package="appstream-glib"/>
+      <dep package="cairo"/>
       <dep package="gcr"/>
-      <dep package="avahi"/>
+      <dep package="gdk-pixbuf"/>
+      <dep package="gettext"/>
+      <dep package="glib"/>
       <dep package="gnome-desktop"/>
+      <dep package="gtk+-3"/>
+      <dep package="hogweed"/>
+      <dep package="iso-codes"/>
+      <dep package="json-glib"/>
+      <dep package="libhttpseverywhere"/>
       <dep package="libnotify"/>
       <dep package="libsecret"/>
       <dep package="libsoup"/>
+      <dep package="libxml2"/>
+      <dep package="libxslt"/>
+      <dep package="m4-common"/>
+      <dep package="nettle"/>
+      <dep package="sqlite3"/>
+      <dep package="yelp-tools"/>
     </dependencies>
-  </autotools>
+  </meson>
 
 </moduleset>
