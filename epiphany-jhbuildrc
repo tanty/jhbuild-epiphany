@@ -20,6 +20,10 @@ moduleset = [ 'gnome-apps-3.22', os.path.join(script_path,'epiphany-jhbuild.modu
 # modules = [ 'meta-gnome-core', 'webkitgtk-testing-dependencies' ]
 modules = [ 'jhbuild-stable-epiphany' ]
 
+# Build for X11 AND Wayland:
+conditions.add('x11')
+conditions.add('wayland')
+
 # Or to build the old GNOME 2.32:
 # moduleset = 'gnome2/gnome-2.32'
 # modules = ['meta-gnome-desktop']
